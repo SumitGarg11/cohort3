@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.9.0/axios.min.js" integrity="sha512-FPlUpimug7gt7Hn7swE8N2pHw/+oQMq/+R/hH/2hZ43VOQ+Kjh25rQzuLyPz7aUWKlRpI7wXbY6+U3oFPGjPOA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body>
+    <div>
+        SignUP
+        <input type="text" id="signup-user" placeholder="username" >
+        <input type="text" id="signup-pass" placeholder="password" >
+        <button onclick="signup()" >Submit</button>
+    </div>
+    <div>
+        SignIN
+        <input type="text" id="signin-user" placeholder="username" >
+        <input type="text" id="signin-pass"  placeholder="password" >
+        <button onclick="signin()" >Submit</button>
+    </div>
+    <div>
+        User Info
+        <div id="info"></div>
+    </div>
+    <div>
+        <button onclick="logout()" >Log Out</button>
+    </div>
+    <script>
+        async function signup(){
+            const username = document.getElementById('signup-user').value;
+            const password = document.getElementById('signup-pass').value;
+            await axios.post("http://localhost:3000/signup",{
+                username:username,
+                password:password
+            })
+            alert("u are signed upp");
+
+        }
+        async function signin(){
+            const username = document.getElementById('signin-user').value;
+            const password = document.getElementById('signin-pass').value;
+            const response = await axios.post("http://localhost:3000/signin",{
+                username:username,
+                password:password
+            })
+            localStorage.setItem("token",response.data.token);
+            alert("u are signed inn");
+
+        }
+    </script>
+</body>
+</html>
